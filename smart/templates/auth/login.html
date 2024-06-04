@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>로그인</title>
+
+    <style>
+      body {
+        display: flex;
+        flex-direction: column; /* 세로 정렬을 위해 추가 */
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        text-align: center;
+      }
+
+      h2 {
+        margin-left: -50px; /* 로그인 제목을 왼쪽으로 이동 */
+      }
+
+      form {
+        display: inline-block;
+        text-align: left;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>로그인</h2>
+    <form
+      id="login-form"
+      action="{{ url_for('api.auth_auth_login') }}"
+      method="post"
+    >
+      <div class="line-group">
+        <label for="username">사용자 이름:</label><br />
+        <input type="text" id="username" name="username" /><br />
+      </div>
+
+      <div class="line-group">
+        <label for="password">비밀번호:</label><br />
+        <input type="password" id="password" name="password" /><br /><br />
+      </div>
+
+      <div class="line-group">
+        <input type="submit" value="로그인" />
+      </div>
+    </form>
+    <script>
+      document
+        .getElementById("login-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const loginData = {
+            username: document.getElementById("username").value,
+            password: document.getElementById("password").value,
+          };
+
+          fetch("{{ url_for('api.auth_auth_login') }}", {
+            method: "POST",
+            body: JSON.stringify(loginData),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then(
+              (response) => (location.href = "{{ url_for('api.main_index') }}")
+            )
+            .then((data) => {
+              if (data === "success") {
+                alert("로그인 성공!");
+                window.opener.updateLoginStatus(formData.get("username"));
+                window.close();
+              } else {
+                alert("로그인 실패. 사용자 이름 또는 비밀번호를 확인하세요.");
+              }
+            });
+        });
+    </script>
+  </body>
+</html>

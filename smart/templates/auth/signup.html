@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원가입</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/shorthandcss@1.1.1/dist/shorthand.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Muli:200,300,400,500,600,700,800,900&display=swap"
+    />
+    <style>
+      body {
+        font-family: "Muli", sans-serif;
+        background-color: #f8f8f8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .signup-container {
+        background-color: white;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 400px;
+        text-align: center;
+      }
+
+      .signup-container h2 {
+        margin-bottom: 20px;
+      }
+
+      .signup-container input {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .signup-container button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.4s;
+      }
+
+      .signup-container button:hover {
+        background-color: #45a049;
+      }
+
+      .error-message {
+        color: red;
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="signup-container">
+      <h2>회원가입</h2>
+      <form
+        id="signup-form"
+        action="{{ url_for('api.auth_auth_regist') }}"
+        method="POST"
+      >
+        <input
+          type="text"
+          id="id"
+          name="id"
+          placeholder="아이디"
+          pattern="\d*"
+          title="숫자만 입력해주세요"
+          required
+        />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="비밀번호"
+          pattern="\d*"
+          title="숫자만 입력해주세요"
+          required
+        />
+        <input
+          type="text"
+          id="phone"
+          name="phone"
+          placeholder="전화번호( - 빼고작성 )"
+          pattern="\d*"
+          title="숫자만 입력해주세요"
+          required
+        />
+        <button type="submit">가입하기</button>
+      </form>
+      <div class="error-message" id="error-message">
+        모든 필드를 숫자로 입력해주세요.
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("signup-form")
+        .addEventListener("submit", function (event) {
+          var errorMessage = document.getElementById("error-message");
+
+          const registData = {
+            id: document.getElementById("id").value,
+            password: document.getElementById("password").value,
+            phone: document.getElementById("phone").value,
+          };
+
+          if (isNaN(id) || isNaN(password) || isNaN(phone)) {
+            errorMessage.style.display = "block";
+            event.preventDefault();
+          } else {
+            errorMessage.style.display = "none";
+          }
+
+          fetch("{{ url_for('api.auth_auth_regist') }}", {
+            method: "POST",
+            body: JSON.stringify(registData),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then(
+              (response) => (location.href = "{{ url_for('api.main_index') }}")
+            )
+            .then((data) => {
+              if (data === "success") {
+                alert("로그인 성공!");
+                window.opener.updateLoginStatus(formData.get("username"));
+                window.close();
+              } else {
+                alert("로그인 실패. 사용자 이름 또는 비밀번호를 확인하세요.");
+              }
+            });
+        });
+    </script>
+  </body>
+</html>
