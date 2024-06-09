@@ -111,6 +111,7 @@
       document
         .getElementById("signup-form")
         .addEventListener("submit", function (event) {
+          event.preventDefault();
           var errorMessage = document.getElementById("error-message");
 
           const registData = {
@@ -119,10 +120,16 @@
             phone: document.getElementById("phone").value,
           };
 
-          if (isNaN(id) || isNaN(password) || isNaN(phone)) {
+          if (
+            isNaN(registData.id) ||
+            isNaN(registData.password) ||
+            isNaN(registData.phone)
+          ) {
+            console.log(registData);
             errorMessage.style.display = "block";
             event.preventDefault();
           } else {
+            console.log("no");
             errorMessage.style.display = "none";
           }
 
@@ -133,16 +140,14 @@
               "Content-Type": "application/json",
             },
           })
-            .then(
-              (response) => (location.href = "{{ url_for('api.main_index') }}")
-            )
+            .then((response) => response.json())
             .then((data) => {
+              console.log(data);
               if (data === "success") {
-                alert("로그인 성공!");
-                window.opener.updateLoginStatus(formData.get("username"));
+                alert("회원가입 성공!");
                 window.close();
               } else {
-                alert("로그인 실패. 사용자 이름 또는 비밀번호를 확인하세요.");
+                alert(data.message);
               }
             });
         });

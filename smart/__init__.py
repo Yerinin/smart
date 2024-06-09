@@ -10,6 +10,7 @@ blueprint = Blueprint("api", __name__)
 
 def create_app():
     app = Flask(__name__)
+    app.secret_key = "1fdsvcxvgsfewffd"
     app.config.from_object(config)
 
     api = Api( #Rest api 동객체생성

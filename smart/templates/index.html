@@ -1,215 +1,40 @@
-<!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>흡연구역 안전 지킴이</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/shorthandcss@1.1.1/dist/shorthand.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Muli:200,300,400,500,600,700,800,900&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"
-    />
-    <style>
-      .button-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .button-lg {
-        padding: 50px 30px;
-        font-size: 18px;
-        margin: 0 10px;
-      }
-
-      .login-btn,
-      .signup-btn {
-        padding: 10px 20px;
-        text-align: left;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 12px;
-        margin: 4px 2px;
-        border-radius: 5px;
-        transition-duration: 0.4s;
-        white-space: nowrap;
-      }
-
-      .login-btn {
-        background-color: #4caf50;
-        color: white;
-      }
-
-      .login-btn:hover {
-        background-color: #4caf50;
-        color: white;
-        border: 5px solid #4caf50;
-      }
-
-      .signup-btn {
-        background-color: black;
-        color: white;
-      }
-
-      .signup-btn:hover {
-        background-color: black;
-        color: white;
-        border: 5px solid black;
-      }
-    </style>
-  </head>
-
-  <body style="background-color: rgb(248, 248, 248)" class="muli">
-    <nav
-      class="w-100pc flex flex-column md-flex-row md-px-10 py-5 bg-white justify-between items-center"
+{% extends './layout/layout.html' %} {% block content %}
+<section id="home" class="min-h-100vh flex justify-center items-center">
+  <div class="mx-5 md-mx-l5 text-center">
+    <button
+      id="smart-booth-button"
+      class="button-lg bg-black black-lightest focus-white fw-300 fs-x10 mr-0 br-l-0"
+      style="padding: 140px 100px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)"
     >
-      <div class="flex justify-between items-center w-full md:w-auto">
-        <a
-          data-toggle="toggle-nav"
-          data-target="#nav-items"
-          href="#"
-          class="flex items-center ml-auto md-hidden indigo-lighter opacity-50 hover-opacity-100 ease-300 p-1 m-3"
-          style="box-shadow: 0 4px 6px rgba(0, 0, 0, 1)"
-        >
-          <i data-feather="menu"></i>
-        </a>
-      </div>
-      <div
-        id="nav-items"
-        class="flex sm-w-100pc flex-column md-flex md-flex-row md-justify-start items-center"
+      <span style="font-weight: 600; font-size: 30px; text-align: left"
+        >우리 동네<br />스마트 흡연 부스 및<br />꽁초 수거함 관리하기</span
       >
-        <a
-          href="#home"
-          class="fs-x10 mx-3 py-3 black fw-600 no-underline hover-underline"
-          >홈</a
-        >
-        <a
-          href="smart-booth-manage.html"
-          class="fs-x10 mx-3 py-3 black fw-600 no-underline hover-underline"
-          >스마트 흡연 부스 및 꽁초 수거함 관리</a
-        >
-        <a
-          href="#pricing"
-          class="fs-x10 mx-3 py-3 black fw-600 no-underline hover-underline"
-          >신고 접수현황</a
-        >
-      </div>
-      <div class="flex items-center">
-        <a
-          href="javascript:void(0);"
-          class="login-btn"
-          id="login-btn"
-          onclick="openLoginWindow()"
-          >로그인하기</a
-        >
-        <a
-          href="javascript:void(0);"
-          class="signup-btn"
-          id="signup-btn"
-          onclick="openSignupWindow()"
-          >회원가입</a
-        >
-      </div>
-    </nav>
-
-    <section id="home" class="min-h-100vh flex justify-center items-center">
-      <div class="mx-5 md-mx-l5 text-center">
-        <button
-          id="smart-booth-button"
-          class="button-lg bg-black black-lightest focus-white fw-300 fs-x10 mr-0 br-l-0"
-          style="padding: 140px 100px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)"
-        >
-          <span style="font-weight: 600; font-size: 30px; text-align: left"
-            >우리 동네<br />스마트 흡연 부스 및<br />꽁초 수거함 관리하기</span
-          >
-          <img
-            src="assets/images/스마트흡연부스관리.png"
-            style="width: 50px; height: 60px; margin-right: 10px"
-          />
-        </button>
-
-        <script>
-          document
-            .getElementById("smart-booth-button")
-            .addEventListener("click", function () {
-              window.location.href = "smart-booth-manage.html";
-            });
-        </script>
-
-        <button
-          class="button-lg bg-white black focus-white fs-300 fs-x10 mr-0 br-l-0"
-          style="padding: 140px 100px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)"
-        >
-          <span style="font-weight: 600; font-size: 30px; text-align: left"
-            >우리 동네<br />신고 접수 현황<br />확인하기</span
-          >
-          <img
-            src="assets/images/사이렌.png"
-            style="width: 50px; height: 60px; margin-right: 10px"
-          />
-        </button>
-      </div>
-    </section>
+      <img
+        src="assets/images/스마트흡연부스관리.png"
+        style="width: 50px; height: 60px; margin-right: 10px"
+      />
+    </button>
 
     <script>
-      function openLoginWindow() {
-        var width = 600;
-        var height = 400;
-        var left = screen.width / 2 - width / 2;
-        var top = screen.height / 2 - height / 2;
-        window.open(
-          "login",
-          "로그인",
-          "width=" +
-            width +
-            ",height=" +
-            height +
-            ",top=" +
-            top +
-            ",left=" +
-            left
-        );
-      }
-
-      function openSignupWindow() {
-        var width = 600;
-        var height = 400;
-        var left = screen.width / 2 - width / 2;
-        var top = screen.height / 2 - height / 2;
-        window.open(
-          "signup",
-          "회원가입",
-          "width=" +
-            width +
-            ",height=" +
-            height +
-            ",top=" +
-            top +
-            ",left=" +
-            left
-        );
-      }
-
-      function updateLoginStatus(username) {
-        var loginBtn = document.getElementById("login-btn");
-        loginBtn.innerText = username;
-        loginBtn.href = "#";
-        loginBtn.classList.remove("login-btn");
-        loginBtn.classList.add("user-btn");
-      }
+      document
+        .getElementById("smart-booth-button")
+        .addEventListener("click", function () {
+          window.location.href = "smart-booth-manage.html";
+        });
     </script>
-  </body>
-</html>
+
+    <button
+      class="button-lg bg-white black focus-white fs-300 fs-x10 mr-0 br-l-0"
+      style="padding: 140px 100px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)"
+    >
+      <span style="font-weight: 600; font-size: 30px; text-align: left"
+        >우리 동네<br />신고 접수 현황<br />확인하기</span
+      >
+      <img
+        src="assets/images/사이렌.png"
+        style="width: 50px; height: 60px; margin-right: 10px"
+      />
+    </button>
+  </div>
+</section>
+{% endblock %}

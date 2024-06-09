@@ -42,7 +42,7 @@ class AuthLogin(Resource):
         except ApiException as e:
             return {"password": e.message}, 400
 
-        return user_id
+        return {"id":user_id}
 
 
 @api.route("signup")
@@ -55,7 +55,7 @@ class AuthRegist(Resource):
     def post(self):
         try:
             json_data = request.get_json()
-            
+
             user = register_user(
                 id=json_data["id"], 
                 password=json_data["password"], 
@@ -63,7 +63,7 @@ class AuthRegist(Resource):
             )
         
         except ApiException as e:
-            return {"password": e.message}, 400
+            return {"message": e.message}, 400
 
         return "success"
 

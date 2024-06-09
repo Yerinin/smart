@@ -4,7 +4,6 @@ from flask_restx import Namespace, Resource
 
 api = Namespace("main", description="main related operations")
 
-
 @api.route("/")
 @api.route("/index")
 class Index(Resource):

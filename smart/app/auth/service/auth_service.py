@@ -26,7 +26,6 @@ def register_user(id, password, phone) -> User:
     
     if savedUser:
         raise ApiException(ALREADY_EXISTS_USER)
-
     # valid_regist_password(password, re_password)
 
     user = User.create(id, password, phone)
